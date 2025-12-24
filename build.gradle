@@ -3,8 +3,8 @@ plugins {
     id 'maven-publish'
 }
 
-group = project.group_id
-version = project.loader_version
+group = 'net.luxmcje'
+version = '0.1.0-alpha'
 
 repositories {
     mavenCentral()
