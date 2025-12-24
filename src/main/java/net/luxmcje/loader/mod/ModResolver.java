@@ -37,6 +37,8 @@ public class ModResolver {
         }
 
         System.out.println("[Lux-Resolver] Successfully resolved " + DISCOVERED_MODS.size() + " valid Lux mods.");
+
+        ModLauncher.launch(DISCOVERED_MODS);
     }
 
     private static void processMod(File file) {
