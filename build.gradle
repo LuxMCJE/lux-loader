@@ -1,3 +1,37 @@
+plugins {
+    id 'java'
+    id 'maven-publish'
+}
+
+group = project.group_id
+version = project.loader_version
+
+repositories {
+    mavenCentral()
+    maven { url = "https://maven.fabricmc.net/" }
+}
+
 dependencies {
     implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'org.ow2.asm:asm:9.6'
+    implementation 'org.ow2.asm:asm-tree:9.6'
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+    sourceCompatibility = project.java_version
+    targetCompatibility = project.java_version
+}
+
+jar {
+    archiveFileName = "${project.archives_base_name}-${project.version}.jar"
+    
+    manifest {
+        attributes(
+            'Main-Class': 'net.luxmcje.loader.impl.LuxLoader',
+            'Implementation-Title': 'LuxLoader',
+            'Implementation-Version': project.version,
+            'Implementation-Vendor': 'LuxMCJE'
+        )
+    }
 }
