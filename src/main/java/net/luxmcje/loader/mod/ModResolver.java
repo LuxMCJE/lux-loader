@@ -1,13 +1,18 @@
 package net.luxmcje.loader.mod;
 
 import net.luxmcje.loader.impl.LuxLoader;
+import com.google.gson.Gson;
 import java.io.File;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 
 public class ModResolver {
 
-    private static final List<String> DISCOVERED_MODS = new ArrayList<>();
+    private static final List<ModMetadata> DISCOVERED_MODS = new ArrayList<>();
+    private static final Gson GSON = new Gson();
 
     public static void resolve() {
         System.out.println("[Lux-Resolver] Initializing mod resolution process...");
@@ -28,18 +33,34 @@ public class ModResolver {
         }
 
         for (File modFile : files) {
-            System.out.println("[Lux-Resolver] Found potential mod: " + modFile.getName());
             processMod(modFile);
         }
 
-        System.out.println("[Lux-Resolver] Successfully resolved " + DISCOVERED_MODS.size() + " mods.");
+        System.out.println("[Lux-Resolver] Successfully resolved " + DISCOVERED_MODS.size() + " valid Lux mods.");
     }
 
     private static void processMod(File file) {
-        DISCOVERED_MODS.add(file.getName());
+        try (JarFile jar = new JarFile(file)) {
+            JarEntry entry = jar.getJarEntry("lux.mod.json");
+
+            if (entry != null) {
+                try (InputStreamReader reader = new InputStreamReader(jar.getInputStream(entry))) {
+                    ModMetadata meta = GSON.fromJson(reader, ModMetadata.class);
+                    
+                    if (meta != null && meta.id != null) {
+                        System.out.println("[Lux-Resolver] Verified mod: " + meta.id + " v" + meta.version);
+                        DISCOVERED_MODS.add(meta);
+                    }
+                }
+            } else {
+                System.out.println("[Lux-Resolver] Skipping " + file.getName() + " (Missing lux.mod.json)");
+            }
+        } catch (Exception e) {
+            System.err.println("[Lux-Resolver] Error reading jar file: " + file.getName());
+        }
     }
     
-    public static List<String> getDiscoveredMods() {
+    public static List<ModMetadata> getDiscoveredMods() {
         return DISCOVERED_MODS;
     }
 }
