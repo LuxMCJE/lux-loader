@@ -9,9 +9,12 @@ version = '0.1.0-alpha'
 repositories {
     mavenCentral()
     maven { url = "https://maven.fabricmc.net/" }
+    maven { url 'https://jitpack.io' }
 }
 
 dependencies {
+    implementation 'com.github.LuxMCJE:lux-api:v0.1.0-alpha'
+    
     implementation 'com.google.code.gson:gson:2.10.1'
     implementation 'org.ow2.asm:asm:9.6'
     implementation 'org.ow2.asm:asm-tree:9.6'
