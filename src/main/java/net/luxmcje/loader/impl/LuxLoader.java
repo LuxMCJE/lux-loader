@@ -2,6 +2,7 @@ package net.luxmcje.loader.impl;
 
 import net.luxmcje.loader.impl.discovery.ModScanner;
 import net.luxmcje.loader.impl.discovery.ModCandidate;
+import net.luxmcje.loader.impl.launch.ModLauncher;
 import java.nio.file.Paths;
 import java.nio.file.Path;
 import java.util.List;
@@ -14,7 +15,6 @@ public class LuxLoader {
         System.out.println("---------------------------------------");
         System.out.println("   LuxLoader Java Edition (LuxMCJE)   ");
         System.out.println("   Version: " + VERSION);
-        System.out.println("   License: Apache-2.0");
         System.out.println("---------------------------------------");
         
         System.out.println("[Lux-Core] Meta Server: " + META_BASE_URL);
@@ -36,6 +36,9 @@ public class LuxLoader {
             List<ModCandidate> candidates = scanner.getFoundMods();
             
             System.out.println("[Lux-Scanner] Success! Found " + candidates.size() + " mods.");
+
+            ModLauncher launcher = new ModLauncher();
+            launcher.launch(candidates);
             
             for (ModCandidate mod : candidates) {
                 System.out.println("  >> Loaded: " + mod.id() + " [" + mod.version() + "]");
