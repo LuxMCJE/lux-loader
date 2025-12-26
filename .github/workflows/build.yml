@@ -1,13 +1,16 @@
-name: Build and Release LuxLoader
+name: Build and Release Lux
 
 on:
   push:
-    tags:
-      - 'v*'
+    branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write 
+
     steps:
       - uses: actions/checkout@v4
 
@@ -17,15 +20,21 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Grant execute permission for gradlew
+      - name: Grant execute permission
         run: chmod +x gradlew
 
-      - name: Build with ShadowJar
+      - name: Build ShadowJar
         run: ./gradlew shadowJar
+        
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: lux-loader-alpha
+          path: build/libs/*-all.jar
 
-      - name: Upload Release Asset
+      - name: Create Release
         uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
+        if: startsWith(github.ref, 'refs/tags/v')
         with:
           files: build/libs/*-all.jar
         env:
