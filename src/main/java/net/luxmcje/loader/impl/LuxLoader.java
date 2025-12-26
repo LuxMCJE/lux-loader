@@ -28,6 +28,8 @@ public class LuxLoader {
         System.out.println("[Lux-Scanner] Searching for mods in /mods directory...");
         Path modsPath = Paths.get("mods");
         ModScanner scanner = new ModScanner();
+        ModLauncher launcher = new ModLauncher();
+        launcher.launch(candidates);
         
         try {
             scanner.scanDirectory(modsPath);
