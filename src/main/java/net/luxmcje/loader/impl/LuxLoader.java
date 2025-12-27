@@ -70,8 +70,3 @@ public class LuxLoader {
         return META_BASE_URL + endpoint;
     }
 }
-public static void main(String[] args) {
-    // ... كود الشعار وفحص المودات هنا ...
-
-    
-}
