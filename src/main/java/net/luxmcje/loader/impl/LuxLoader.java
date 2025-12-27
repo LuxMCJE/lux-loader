@@ -25,11 +25,16 @@ public class LuxLoader {
     }
 
     private static void scanLocalMods() {
+        Path modsPath = Paths.get(gameDir, "mods");
+       String gameDir = System.getProperty("user.dir");
+
         System.out.println("[Lux-Scanner] Searching for mods in /mods directory...");
-        Path modsPath = Paths.get("mods");
+
         ModScanner scanner = new ModScanner();
         
         try {
+            java.nio.file.Files.createDirectories(modsPath);
+            
             scanner.scanDirectory(modsPath);
             List<ModCandidate> candidates = scanner.getFoundMods();
             
@@ -48,8 +53,3 @@ public class LuxLoader {
             e.printStackTrace();
         }
     }
-
-    public static String getMetaUrl(String endpoint) {
-        return META_BASE_URL + endpoint;
-    }
-}
