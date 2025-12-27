@@ -25,8 +25,8 @@ public class LuxLoader {
     }
 
     private static void scanLocalMods() {
+        String gameDir = System.getProperty("user.dir");
         Path modsPath = Paths.get(gameDir, "mods");
-       String gameDir = System.getProperty("user.dir");
 
         System.out.println("[Lux-Scanner] Searching for mods in /mods directory...");
 
@@ -52,5 +52,9 @@ public class LuxLoader {
             System.err.println("[Lux-Scanner] Critical error while scanning mods!");
             e.printStackTrace();
         }
+    }
+    
+    public static String getMetaUrl(String endpoint) {
+        return META_BASE_URL + endpoint;
     }
 }
