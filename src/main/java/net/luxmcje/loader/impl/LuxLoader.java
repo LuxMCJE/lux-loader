@@ -17,13 +17,19 @@ public class LuxLoader {
         System.out.println("   Version: " + VERSION);
         System.out.println("---------------------------------------");
         
-        System.out.println("[Lux-Core] Meta Server: " + META_BASE_URL);
-        
         scanLocalMods();
 
         System.out.println("[Lux-Core] Checking Loader Info: " + getMetaUrl("loader.json"));
-    }
 
+        System.out.println("[Lux-Core] Starting Minecraft...");
+        try {
+            net.minecraft.client.main.Main.main(args);
+        } catch (Exception e) {
+            System.err.println("[Lux-Core] Failed to start Minecraft!");
+            e.printStackTrace();
+        }
+    }
+    
     private static void scanLocalMods() {
         String gameDir = System.getProperty("user.dir");
         Path modsPath = Paths.get(gameDir, "mods");
