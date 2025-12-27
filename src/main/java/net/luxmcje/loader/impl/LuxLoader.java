@@ -22,11 +22,17 @@ public class LuxLoader {
         System.out.println("[Lux-Core] Checking Loader Info: " + getMetaUrl("loader.json"));
 
         System.out.println("[Lux-Core] Starting Minecraft...");
+
         try {
-            net.minecraft.client.main.Main.main(args);
-        } catch (Exception e) {
-            System.err.println("[Lux-Core] Failed to start Minecraft!");
-            e.printStackTrace();
+        System.out.println("[Lux-Core] Starting Minecraft...");
+        Class<?> mainClass = Class.forName("net.minecraft.client.main.Main");
+        java.lang.reflect.Method mainMethod = mainClass.getMethod("main", String[].class);
+        mainMethod.invoke(null, (Object) args);
+    } catch (ClassNotFoundException e) {
+        System.err.println("[Lux-Core] Minecraft not found! Make sure you are running in a valid launcher.");
+    } catch (Exception e) {
+        System.err.println("[Lux-Core] Failed to launch Minecraft via LuxLoader.");
+        e.printStackTrace();
         }
     }
     
@@ -63,4 +69,9 @@ public class LuxLoader {
     public static String getMetaUrl(String endpoint) {
         return META_BASE_URL + endpoint;
     }
+}
+public static void main(String[] args) {
+    // ... كود الشعار وفحص المودات هنا ...
+
+    
 }
