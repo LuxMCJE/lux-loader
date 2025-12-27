@@ -11,7 +11,7 @@ public class LuxLoader {
     public static final String VERSION = "0.1.0-alpha";
     public static final String META_BASE_URL = "https://raw.githubusercontent.com/LuxMCJE/lux-meta/main/v1/";
 
-    public static void boot() {
+    public static void main(String[] args) {
         System.out.println("---------------------------------------");
         System.out.println("   LuxLoader Java Edition (LuxMCJE)   ");
         System.out.println("   Version: " + VERSION);
