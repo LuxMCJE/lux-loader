@@ -21,7 +21,6 @@ repositories {
 
 dependencies {
     implementation 'com.github.LuxMCJE:lux-api:main-SNAPSHOT'
-    
     implementation 'com.google.code.gson:gson:2.10.1'
     implementation 'org.ow2.asm:asm:9.6'
     implementation 'org.ow2.asm:asm-tree:9.6'
@@ -29,13 +28,10 @@ dependencies {
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
-    sourceCompatibility = project.java_version
-    targetCompatibility = project.java_version
 }
 
-jar {
-    archiveFileName = "${project.archives_base_name}-${project.version}.jar"
-    
+shadowJar {
+    archiveClassifier.set('')
     manifest {
         attributes(
             'Main-Class': 'net.luxmcje.loader.impl.LuxLoader',
@@ -48,17 +44,11 @@ jar {
 
 publishing {
     publications {
-        shadow(MavenPublication) {
-            from components.java
-            artifact shadowJar
+        mavenJava(MavenPublication) {
             artifact shadowJar
             groupId = group
             artifactId = 'lux-loader'
             version = version
         }
     }
-}
-
-shadowJar {
-    archiveClassifier.set('')
 }
