@@ -1,11 +1,17 @@
 plugins {
-    id 'java'
+    id 'java-library'
     id 'maven-publish'
     id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
 
 group = 'com.github.LuxMCJE'
 version = '0.1.1'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
 
 repositories {
     mavenCentral()
@@ -45,6 +51,14 @@ publishing {
         shadow(MavenPublication) {
             from components.java
             artifact shadowJar
+            artifact shadowJar
+            groupId = group
+            artifactId = 'lux-loader'
+            version = version
         }
     }
+}
+
+shadowJar {
+    archiveClassifier.set('')
 }
