@@ -4,6 +4,14 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
 
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+}
+
 group = 'com.github.LuxMCJE'
 version = '0.1.1'
 
@@ -38,4 +46,7 @@ jar {
             'Implementation-Vendor': 'LuxMCJE'
         )
     }
+}
+plugins {
+    id 'maven-publish'
 }
