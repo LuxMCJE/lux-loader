@@ -45,10 +45,10 @@ shadowJar {
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            artifact shadowJar
-            groupId = group
+            artifact shadowJar 
+            groupId = 'com.github.LuxMCJE'
             artifactId = 'lux-loader'
-            version = version
+            version = '0.1.1'
         }
     }
 }
