@@ -32,6 +32,7 @@ tasks.withType(JavaCompile) {
 
 shadowJar {
     archiveClassifier.set('')
+    mergeServiceFiles()
     manifest {
         attributes(
             'Main-Class': 'net.luxmcje.loader.impl.LuxLoader',
@@ -45,10 +46,7 @@ shadowJar {
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            artifact shadowJar 
-            groupId = 'com.github.LuxMCJE'
-            artifactId = 'lux-loader'
-            version = '0.1.1'
+            artifact shadowJar
         }
     }
 }
