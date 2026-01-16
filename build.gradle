@@ -11,6 +11,7 @@ java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(17)
     }
+    withSourcesJar()
 }
 
 repositories {
@@ -20,33 +21,26 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.LuxMCJE:lux-api:main-SNAPSHOT'
-    implementation 'com.google.code.gson:gson:2.10.1'
-    implementation 'org.ow2.asm:asm:9.6'
-    implementation 'org.ow2.asm:asm-tree:9.6'
-}
-
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
+    api 'com.github.LuxMCJE:lux-api:main-SNAPSHOT'
+    api 'com.google.code.gson:gson:2.10.1'
+    api 'org.ow2.asm:asm:9.6'
+    api 'org.ow2.asm:asm-tree:9.6'
 }
 
 shadowJar {
     archiveClassifier.set('')
+    configurations = [project.configurations.runtimeClasspath]
+    
     mergeServiceFiles()
-    manifest {
-        attributes(
-            'Main-Class': 'net.luxmcje.loader.impl.LuxLoader',
-            'Implementation-Title': 'LuxLoader',
-            'Implementation-Version': project.version,
-            'Implementation-Vendor': 'LuxMCJE'
-        )
-    }
 }
+
+build.dependsOn shadowJar
 
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            artifact shadowJar
+            from components.java
+            
             groupId = 'com.github.LuxMCJE'
             artifactId = 'lux-loader'
             version = '0.1.7'
