@@ -1,4 +1,4 @@
 jdk:
   - openjdk17
 install:
-  - ./gradlew shadowJar publishToMavenLocal
+  - ./gradlew shadowJar install
