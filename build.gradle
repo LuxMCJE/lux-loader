@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.github.LuxMCJE'
-version = '0.1.9'
+version = '0.1.10'
 
 java {
     toolchain {
@@ -33,7 +33,7 @@ jar {
 
 shadowJar {
     archiveClassifier.set('')
-    archiveVersion.set('0.1.9')
+    archiveVersion.set('0.1.10')
     archiveBaseName.set('lux-loader') 
     configurations = [project.configurations.runtimeClasspath]
     from sourceSets.main.output
@@ -49,7 +49,7 @@ publishing {
             artifact shadowJar
             groupId = 'com.github.LuxMCJE'
             artifactId = 'lux-loader'
-            version = '0.1.9'
+            version = '0.1.10'
         }
     }
 }
