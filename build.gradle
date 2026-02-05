@@ -27,6 +27,10 @@ dependencies {
     api 'org.ow2.asm:asm-tree:9.6'
 }
 
+jar {
+    enabled = true
+}
+
 shadowJar {
     archiveClassifier.set('')
     configurations = [project.configurations.runtimeClasspath]
