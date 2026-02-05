@@ -32,3 +32,6 @@ jobs:
           name: lux-loader-alpha
           path: build/libs/*.jar
           if-no-files-found: error
+
+      - name: Verify JAR Content
+        run: jar tf build/libs/*.jar
