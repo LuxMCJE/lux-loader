@@ -33,6 +33,8 @@ jar {
 
 shadowJar {
     archiveClassifier.set('')
+    archiveVersion.set('0.1.9')
+    archiveBaseName.set('lux-loader') 
     configurations = [project.configurations.runtimeClasspath]
     
     mergeServiceFiles()
